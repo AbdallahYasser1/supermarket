@@ -10,5 +10,14 @@ class sales extends Model
     use HasFactory;
 
     public $table = 'sales';
-    protected $fillable = ['product_id', 'cashier_id', 'date', 'time', 'quantity', 'price'];
+    protected $fillable = ['product_id', 'quantity', 'price'];
+    protected $appends = ['total'];
+    public function getTotalAttribute()
+    {
+        return $this->price * $this->quantity;
+    }
+    public function product()
+    {
+        return $this->belongsTo(product::class);
+    }
 }

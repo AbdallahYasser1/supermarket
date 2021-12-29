@@ -16,15 +16,9 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id');
-            $table->unsignedInteger('cashier_id');
-            $table->date('date');
-            $table->time('time');
             $table->double('quantity', 8, 2);
             $table->double('price', 8, 2);
             $table->foreign('product_id')->references('id')->on('product');
-            $table->foreign('cashier_id')->references('id')->on('users');
-
-
             $table->timestamps();
         });
     }

@@ -11,9 +11,13 @@ class product extends Model
 
     protected $table = "product";
     protected $primaryKey = "id";
-    protected $fillable = ['name', 'quantity', 'base_price', 'price'];
+    protected $fillable = ['name', 'quantity', 'price', 'image'];
     public function suppliers()
     {
         return $this->belongsToMany(supplier::class, 'supplier_product');
+    }
+    public function sales()
+    {
+        return $this->hasMany(sales::class);
     }
 }

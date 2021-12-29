@@ -17,8 +17,8 @@ class CreateProductTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->double('quantity', 8, 2);
-            $table->double('base_price', 8, 2);
             $table->double('price', 8, 2);
+            $table->binary('image');
             $table->timestamps();
         });
     }

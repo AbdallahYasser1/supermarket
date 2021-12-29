@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\supplier;
+use App\Models\customer;
 use App\Models\product;
 
 class SupplierSeeder extends Seeder
@@ -20,7 +20,7 @@ class SupplierSeeder extends Seeder
 
         // And now, let's create a few articles in our database:
         for ($i = 0; $i < 5; $i++) {
-            supplier::create([
+            customer::create([
                 'name' => $faker->name,
                 'address' => $faker->streetAddress,
                 'phonenumber' => $faker->phoneNumber
@@ -28,9 +28,8 @@ class SupplierSeeder extends Seeder
             product::create([
                 'name' => $faker->name,
                 'quantity' => $faker->randomDigit,
-                'base_price' => $faker->randomFloat(1, 20, 30),
-                'price' => $faker->randomFloat(1, 20, 30)
-
+                'price' => $faker->randomFloat(1, 20, 30),
+                'image' => $faker->imageUrl(100, 100)
             ]);
         }
     }
