@@ -26,7 +26,7 @@ class SupplierSeeder extends Seeder
                 'phonenumber' => $faker->phoneNumber
             ]);
             product::create([
-                'name' => $faker->title,
+                'name' => $faker->name,
                 'description' => $faker->name,
                 'quantity' => $faker->randomDigit,
                 'price' => $faker->randomFloat(1, 20, 30),
