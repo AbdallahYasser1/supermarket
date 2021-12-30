@@ -11,7 +11,7 @@ class product extends Model
 
     protected $table = "product";
     protected $primaryKey = "id";
-    protected $fillable = ['name', 'quantity', 'price', 'image'];
+    protected $fillable = ['name', 'quantity', 'price', 'image', 'description'];
     public function suppliers()
     {
         return $this->belongsToMany(supplier::class, 'supplier_product');

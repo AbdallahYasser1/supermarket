@@ -27,11 +27,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/customers', [CustomerController::class, 'show']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::resource('products', ProductController::class);
     Route::get('/customers/{customer}', [CustomerController::class, 'getCustomer']);
     Route::post('/customers', [CustomerController::class, 'createCustomer']);
     Route::put('/customers/{customer}', [CustomerController::class, 'updateCustomer']);
     Route::delete('/customers/{customer}', [CustomerController::class, 'deleteCustomer']);
-    Route::get('/sales', [salecontroller::class, 'index']);
-    Route::post('/sales', [salecontroller::class, 'store']);
 });
+Route::get('/sales', [salecontroller::class, 'index']);
+Route::post('/sales', [salecontroller::class, 'store']);
+Route::resource('products', ProductController::class);
