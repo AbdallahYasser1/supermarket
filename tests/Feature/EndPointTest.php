@@ -206,4 +206,27 @@ class EndPointTest extends TestCase
         $response = $this->put($this->PREFIX . "/products/" . $product->id, ['name' => $newName]);
         $response->assertStatus(200);
     }
+    public function test_showCustomers()
+    {
+
+        // $customers = customer::all();
+        $response = $this->get($this->PREFIX . "/customers/");
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                [
+
+                    '*' => [
+                        'id',
+                        'name',
+                        'address',
+                        'phonenumber',
+                        'created_at',
+                        'updated_at'
+
+                    ]
+
+                ]
+            );
+    }
 }
