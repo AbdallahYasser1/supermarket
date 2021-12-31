@@ -30,12 +30,12 @@ class EndPointTest extends TestCase
      *
      * @return void
      */
-//    public function test_root()
-//    {
-//        $response = $this->get('/');
-//
-//        $response->assertStatus(404);
-//    }
+    //    public function test_root()
+    //    {
+    //        $response = $this->get('/');
+    //
+    //        $response->assertStatus(404);
+    //    }
 
     /**
      * A basic feature test example.
@@ -62,7 +62,7 @@ class EndPointTest extends TestCase
         $password = '1234';
         $user = User::factory()->create(['email' => $email, 'password' => bcrypt($password)]);
 
-//        info("--------". $user->email ."--------". $password ."--------". $user->password);
+        //        info("--------". $user->email ."--------". $password ."--------". $user->password);
 
         $response = $this->post('api/login', ['email' => $email, 'password' => $password]);
         $response->assertStatus(201);
@@ -84,7 +84,8 @@ class EndPointTest extends TestCase
         $data = [
             'name' => 'test',
             'address' => 'test',
-            'phonenumber' => '011'];
+            'phonenumber' => '011'
+        ];
         $response = $this->post('api/customers', $data);
         $response->assertStatus(202);
     }
@@ -94,100 +95,115 @@ class EndPointTest extends TestCase
     {
         $data = [
             'name' => 'test',
-            'email' => 'test@example.com',
-            'password' => '1234',
             'address' => 'test',
-            'phonenumber' => '011'];
-//        $customer = customer::factory()->create();
+            'phonenumber' => '011'
+        ];
+        //        $customer = customer::factory()->create();
         $customer = customer::create($data);
         $newName = 'test2';
-        $response = $this->put($this->PREFIX.'/customers/' . $customer->id, ['name' => $newName]);
-//        $response->assertStatus(200);
-//        $this->assertTrue(true);
+        $response = $this->put($this->PREFIX . '/customers/' . $customer->id, ['name' => $newName]);
+        $response->assertStatus(200);
+        //        $this->assertTrue(true);
     }
 
     public function test_deleteCustomer()
     {
         $data = [
-        'name' => 'test',
-        'email' => 'test@example.com',
-        'password' => '1234',
-        'address' => 'test',
-        'phonenumber' => '011'];
-//        $customer = customer::factory()->create();
+            'name' => 'test',
+            'email' => 'test@example.com',
+            'password' => '1234',
+            'address' => 'test',
+            'phonenumber' => '011'
+        ];
+        //        $customer = customer::factory()->create();
         $customer = customer::create($data);
-        $response = $this->delete($this->PREFIX.'/customers/'.$customer->id);
+        $response = $this->delete($this->PREFIX . '/customers/' . $customer->id);
         $response->assertStatus(204);
 
         $this->expectException(ModelNotFoundException::class);
         $tmp = customer::findOrFail($customer->id);
     }
 
-    public function test_addSale_success() {
-        $data = ['name'=>'test',
-        'quantity' => 5,
-        'description' => "test",
-        'price' => 5,
-            'image'=>'test'];
-
-        $product = Product::create($data);
-
-        $sale_data = ['product_id' => $product->id, 'quantity'=> 4];
-//        $sale = sales::create($sale_data);
-
-        $response = $this->post($this->PREFIX."/sales", $sale_data);
-        $response->assertStatus(202);
-    }
-
-    public function test_addSale_fail() {
-        $data = ['name'=>'test',
+    public function test_addSale_success()
+    {
+        $data = [
+            'name' => 'test',
             'quantity' => 5,
             'description' => "test",
             'price' => 5,
-            'image'=>'test'];
+            'image' => 'test'
+        ];
 
         $product = Product::create($data);
 
-        $sale_data = ['product_id' => $product->id, 'quantity'=> 6];
-//        $sale = sales::create($sale_data);
+        $sale_data = ['product_id' => $product->id, 'quantity' => 4];
+        //        $sale = sales::create($sale_data);
 
-        $response = $this->post($this->PREFIX."/sales", $sale_data);
+        $response = $this->post($this->PREFIX . "/sales", $sale_data);
         $response->assertStatus(202);
     }
 
-    public function test_addProduct() {
-        $data = ['name'=>'test',
+    public function test_addSale_fail()
+    {
+        $data = [
+            'name' => 'test',
             'quantity' => 5,
             'description' => "test",
             'price' => 5,
-            'image'=> 'test'];
+            'image' => 'test'
+        ];
 
-        $response = $this->post($this->PREFIX."/products", $data);
-        $response->assertStatus(202);
-    }
-
-    public function test_deleteProduct() {
-        $data = ['name'=>'test',
-            'quantity' => 5,
-            'description' => "test",
-            'price' => 5,
-            'image'=> 'test'];
         $product = Product::create($data);
 
-        $response = $this->delete($this->PREFIX."/products/".$product->id );
+        $sale_data = ['product_id' => $product->id, 'quantity' => 6];
+        //        $sale = sales::create($sale_data);
+
+        $response = $this->post($this->PREFIX . "/sales", $sale_data);
+        $response->assertStatus(202);
+    }
+
+    public function test_addProduct()
+    {
+        $data = [
+            'name' => 'test',
+            'quantity' => 5,
+            'description' => "test",
+            'price' => 5,
+            'image' => 'test'
+        ];
+
+        $response = $this->post($this->PREFIX . "/products", $data);
+        $response->assertStatus(202);
+    }
+
+    public function test_deleteProduct()
+    {
+        $data = [
+            'name' => 'test',
+            'quantity' => 5,
+            'description' => "test",
+            'price' => 5,
+            'image' => 'test'
+        ];
+        $product = Product::create($data);
+
+        $response = $this->delete($this->PREFIX . "/products/" . $product->id);
         $response->assertStatus(204);
     }
 
-    public function test_updateProduct() {
-        $data = ['name'=>'test',
+    public function test_updateProduct()
+    {
+        $data = [
+            'name' => 'test',
             'quantity' => 5,
             'description' => "test",
             'price' => 5,
-            'image'=> 'test'];
+            'image' => 'test'
+        ];
         $product = Product::create($data);
 
-        $newName= 'test_new';
-        $response = $this->put($this->PREFIX."/products/".$product->id, ['name'=>$newName] );
+        $newName = 'test_new';
+        $response = $this->put($this->PREFIX . "/products/" . $product->id, ['name' => $newName]);
         $response->assertStatus(200);
     }
 }

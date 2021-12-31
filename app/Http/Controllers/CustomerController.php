@@ -26,8 +26,9 @@ class CustomerController extends Controller
         $customer = customer::create($request->all());
         return response()->json($customer, 202);
     }
-    function updateCustomer(Request $request, $customer)
+    function updateCustomer(Request $request, $id)
     {
+        $customer = customer::find($id);
         $customer->update($request->all());
         return response()->json($customer, 200);
     }
