@@ -19,7 +19,7 @@ class CreateProductTable extends Migration
             $table->string('description');
             $table->double('quantity', 8, 2);
             $table->double('price', 8, 2);
-            $table->binary('image');
+            $table->string('image');
             $table->timestamps();
         });
     }
