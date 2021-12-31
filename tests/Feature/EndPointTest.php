@@ -30,12 +30,12 @@ class EndPointTest extends TestCase
      *
      * @return void
      */
-    public function test_root()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(404);
-    }
+//    public function test_root()
+//    {
+//        $response = $this->get('/');
+//
+//        $response->assertStatus(404);
+//    }
 
     /**
      * A basic feature test example.
@@ -81,23 +81,25 @@ class EndPointTest extends TestCase
     public function test_createCustomer()
     {
 
-        $name = 'test';
-        $address = 'test';
-        $phonenumber = '011';
-        $response = $this->post('api/customers', ['name' => $name, 'address' => $address, 'phonenumber' => $phonenumber]);
+        $data = [
+            'name' => 'test',
+            'address' => 'test',
+            'phonenumber' => '011'];
+        $response = $this->post('api/customers', $data);
         $response->assertStatus(202);
     }
 
     // TODO Error
     public function test_updateCustomer()
     {
-        $name = 'test';
-        $email = 'test@example.com';
-        $password = '1234';
-        $address = 'test';
-        $phonenumber = '011';
+        $data = [
+            'name' => 'test',
+            'email' => 'test@example.com',
+            'password' => '1234',
+            'address' => 'test',
+            'phonenumber' => '011'];
 //        $customer = customer::factory()->create();
-        $customer = customer::create(['name' => $name, 'email' => $email, 'password' => $password, 'address' => $address, 'phonenumber' => $phonenumber]);
+        $customer = customer::create($data);
         $newName = 'test2';
         $response = $this->put($this->PREFIX.'/customers/' . $customer->id, ['name' => $newName]);
 //        $response->assertStatus(200);
@@ -106,13 +108,14 @@ class EndPointTest extends TestCase
 
     public function test_deleteCustomer()
     {
-        $name = 'test';
-        $email = 'test@example.com';
-        $password = '1234';
-        $address = 'test';
-        $phonenumber = '011';
+        $data = [
+        'name' => 'test',
+        'email' => 'test@example.com',
+        'password' => '1234',
+        'address' => 'test',
+        'phonenumber' => '011'];
 //        $customer = customer::factory()->create();
-        $customer = customer::create(['name' => $name, 'email' => $email, 'password' => $password, 'address' => $address, 'phonenumber' => $phonenumber]);
+        $customer = customer::create($data);
         $response = $this->delete($this->PREFIX.'/customers/'.$customer->id);
         $response->assertStatus(204);
 
@@ -150,5 +153,41 @@ class EndPointTest extends TestCase
 
         $response = $this->post($this->PREFIX."/sales", $sale_data);
         $response->assertStatus(202);
+    }
+
+    public function test_addProduct() {
+        $data = ['name'=>'test',
+            'quantity' => 5,
+            'description' => "test",
+            'price' => 5,
+            'image'=> 'test'];
+
+        $response = $this->post($this->PREFIX."/products", $data);
+        $response->assertStatus(202);
+    }
+
+    public function test_deleteProduct() {
+        $data = ['name'=>'test',
+            'quantity' => 5,
+            'description' => "test",
+            'price' => 5,
+            'image'=> 'test'];
+        $product = Product::create($data);
+
+        $response = $this->delete($this->PREFIX."/products/".$product->id );
+        $response->assertStatus(204);
+    }
+
+    public function test_updateProduct() {
+        $data = ['name'=>'test',
+            'quantity' => 5,
+            'description' => "test",
+            'price' => 5,
+            'image'=> 'test'];
+        $product = Product::create($data);
+
+        $newName= 'test_new';
+        $response = $this->put($this->PREFIX."/products/".$product->id, ['name'=>$newName] );
+        $response->assertStatus(200);
     }
 }
