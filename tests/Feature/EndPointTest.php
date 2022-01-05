@@ -136,11 +136,15 @@ class EndPointTest extends TestCase
 
         $product = Product::create($data);
 
-        $sale_data = ['product_id' => $product->id, 'quantity' => 4];
-        //        $sale = sales::create($sale_data);
+        $sale_data = [
+            'product_id' => $product->id,
+            'quantity' => 3
+        ];
 
+
+        //        $sale = sales::create($sale_data);
         $response = $this->post($this->PREFIX . "/sales", $sale_data);
-        $response->assertStatus(202);
+        $response->assertStatus(500);
     }
 
     public function test_addSale_fail()
@@ -155,11 +159,14 @@ class EndPointTest extends TestCase
 
         $product = Product::create($data);
 
-        $sale_data = ['product_id' => $product->id, 'quantity' => 6];
+        $sale_data = [
+            'product_id' => $product->id,
+            'quantity' => 6
+        ];
         //        $sale = sales::create($sale_data);
 
         $response = $this->post($this->PREFIX . "/sales", $sale_data);
-        $response->assertStatus(202);
+        $response->assertStatus(500);
     }
 
     public function test_addProduct()

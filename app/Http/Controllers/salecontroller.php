@@ -27,6 +27,7 @@ class salecontroller extends Controller
      */
     public function store(Request $requests)
     {
+        //  error_log($requests);
         $requestsBody = json_decode($requests->getContent());
 
         foreach ($requestsBody as $request) {

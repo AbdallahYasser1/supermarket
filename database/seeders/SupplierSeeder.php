@@ -26,11 +26,11 @@ class SupplierSeeder extends Seeder
                 'phonenumber' => $faker->phoneNumber
             ]);
             product::create([
-                'name' => $faker->name,
-                'description' => $faker->name,
+                'name' => $faker->word,
+                'description' => $faker->sentence,
                 'quantity' => $faker->randomDigit,
                 'price' => $faker->randomFloat(1, 20, 30),
-                'image' => $faker->imageUrl(100, 100)
+                'image' => $faker->imageUrl(100, 100, "food")
             ]);
         }
     }
